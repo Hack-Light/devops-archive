@@ -18,6 +18,15 @@ sudo useradd -c "<username>" -m <username>
 # set password
 echo "<username>:<password>" | sudo chpasswd
 
+# or
+
+# alternatively
+sudo useradd -m -p <password> -s /bin/bash <user>
+
+# -m: --create-home
+# -p: --password
+# -s: --shell
+
 # list users
 cut -d: -f1 /etc/passwd
 
