@@ -16,7 +16,7 @@ sudo apt install mongodb-org
 
 Run: `mongosh` to enter mongo shell
 
-```mongosh
+```js
 > use admin
 
 // create admin user
@@ -25,7 +25,9 @@ Run: `mongosh` to enter mongo shell
   {
     user: "admin",
     pwd: passwordPrompt(), // or pwd: 'password'
-    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+    roles: [
+      { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase"
+    ]
   }
 )
 
@@ -70,3 +72,43 @@ mongo --port 27017  --authenticationDatabase "admin" -u "admin" -p
 ```
 
 You can now create databases and users.
+
+## CREATE USERS
+
+```JS
+db.createUser(
+    {
+        user: "",
+        pwd: "",
+        roles: [
+          { role: "<ROLE>", db: "<DB>" },
+          { role: "<ROLE>", db: "<DB>" }
+        ]
+    })
+```
+
+## UPDATE USER ROLE
+
+To update users role run this in the mongo shell
+
+```js
+db.grantRolesToUser("<user>", [{ role: "<role>", db: "<db>" }]);
+```
+
+# REVOKE USER ROLE
+
+```js
+db.revokeRolesFromUser("<user>", [{ role: "<role>", db: "<db>" }]);
+```
+
+## CHANGE USER PASSWORD
+
+```js
+db.changeUserPassword("<USER>", "<NEW PASSWORD>");
+```
+
+## CONNECTION STRING
+
+The auth source can change based on the user setup.
+
+`mongodb://<USER>:<PASSWORD>@localhost:27017/<DB>?authSource=admin`
